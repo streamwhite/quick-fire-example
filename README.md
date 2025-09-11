@@ -1,21 +1,31 @@
 ## Getting Started
 
-First, run the development server:
+### Environment Variables
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Create a `.env` file in the root directory and add the following Firebase configuration:
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+NEXT_PUBLIC_FIREBASE_APP_ID=
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
+```
 
-## goal
+### Local Package Setup
 
-1. build and run e2e tests.
-2. a template for all e2e tests.
-3. it use firebase as backend
+1. Change the local package version in `package.json` as needed
+2. Place the package (tgz file) in the root of the project directory
+
+### Development Server
+
+First, run the development server(use npm use different syntax for local file):
+
+```bash
+
+pnpm install
+# start local server
+pnpm dev
+```
