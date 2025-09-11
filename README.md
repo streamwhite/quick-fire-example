@@ -2,6 +2,8 @@
 
 ### Environment Variables
 
+Set up a firebase project with a hazard-free guide('setup-firebase-project') at https://qf.orangeredcurve.com/en/docs
+
 Create a `.env` file in the root directory and add the following Firebase configuration:
 
 ```
