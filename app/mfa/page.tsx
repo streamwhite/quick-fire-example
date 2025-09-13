@@ -286,7 +286,19 @@ export default function SignUp() {
                   (secretInfo) => {
                     const { qrCodeUri, secret } = secretInfo;
                     secretRef.current = secret;
-                    setTotpSecret(String(secret));
+                    // Try to extract the actual secret string from the TotpSecret object
+                    const secretObj = secret as unknown as Record<
+                      string,
+                      unknown
+                    >;
+                    const secretString =
+                      (secretObj?.secret as string) ||
+                      (secretObj?.key as string) ||
+                      (secretObj?.value as string) ||
+                      '';
+                    console.log('Secret object:', secretObj);
+                    console.log('Extracted secret string:', secretString);
+                    setTotpSecret(secretString);
                     handleUri(qrCodeUri);
                   }
                 );
@@ -345,23 +357,26 @@ export default function SignUp() {
                 enrolled. You can now use your authenticator app to generate
                 codes for two-factor authentication.
               </p>
-              {totpSecret && (
-                <div className='bg-green-50 border border-green-300 rounded p-3'>
-                  <p className='text-sm font-medium text-green-800 mb-2'>
-                    Your TOTP Secret Key:
-                  </p>
-                  <div
-                    className='bg-white border border-green-200 rounded p-2 font-mono text-sm break-all'
-                    data-testid='totp-secret-display'
-                  >
-                    {totpSecret}
+              {totpSecret &&
+                typeof totpSecret === 'string' &&
+                totpSecret.trim() !== '' &&
+                totpSecret !== '[object Object]' && (
+                  <div className='bg-green-50 border border-green-300 rounded p-3'>
+                    <p className='text-sm font-medium text-green-800 mb-2'>
+                      Your TOTP Secret Key:
+                    </p>
+                    <div
+                      className='bg-white border border-green-200 rounded p-2 font-mono text-sm break-all'
+                      data-testid='totp-secret-display'
+                    >
+                      {totpSecret}
+                    </div>
+                    <p className='text-xs text-green-600 mt-2'>
+                      ⚠️ Keep this secret key safe! Store it in a secure
+                      location as a backup.
+                    </p>
                   </div>
-                  <p className='text-xs text-green-600 mt-2'>
-                    ⚠️ Keep this secret key safe! Store it in a secure location
-                    as a backup.
-                  </p>
-                </div>
-              )}
+                )}
             </div>
           )}
         </div>

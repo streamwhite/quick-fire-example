@@ -2,7 +2,6 @@
 
 import { auth } from '@/app/_lib/auth';
 import { confidentials } from '@/tests/auth/constants';
-import { verifyBeforeUpdateEmail } from 'firebase/auth';
 import {
   deleteUser,
   LanguageCodes,
@@ -10,6 +9,7 @@ import {
   sendEmailVerification as sendVerificationEmail,
   verifyAndUpdateEmail as updateEmail,
   updatePassword,
+  verifyAndUpdateEmail as verifyBeforeUpdateEmail,
   watchAuth,
 } from 'quick-fire-auth';
 import { useEffect, useState } from 'react';
@@ -175,21 +175,12 @@ const ResetPassPage = () => {
               />
               <div className='flex flex-col sm:flex-row gap-2'>
                 <button
-                  data-testid='verify-new-email-button'
+                  data-testid='verify-and-update-email-button'
                   onClick={handleVerifyNewEmail}
                   className='px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500'
                 >
-                  Verify New Email
+                  Verify and Update
                 </button>
-                {isNewEmailVerificationSent && (
-                  <button
-                    data-testid='update-email-button'
-                    onClick={handleUpdateEmail}
-                    className='px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500'
-                  >
-                    Update Email
-                  </button>
-                )}
               </div>
             </div>
           </div>
@@ -254,19 +245,7 @@ const ResetPassPage = () => {
               {isEmailSent ? '✓ Sent' : '✗ Not sent'}
             </span>
           </div>
-          <div className='flex justify-between items-center'>
-            <span className='text-sm font-medium text-gray-700'>
-              Verification Email Sent:
-            </span>
-            <span
-              className={`text-sm font-medium ${
-                isVerificationEmailSent ? 'text-green-600' : 'text-gray-500'
-              }`}
-              data-testid='verification-email-sent-message'
-            >
-              {isVerificationEmailSent ? '✓ Sent' : '✗ Not sent'}
-            </span>
-          </div>
+
           <div className='flex justify-between items-center'>
             <span className='text-sm font-medium text-gray-700'>
               Email Updated:

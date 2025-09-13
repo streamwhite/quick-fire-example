@@ -1,6 +1,6 @@
 import { User } from 'firebase/auth';
 import {
-  sendEmailAddressVerificationEmail,
+  sendEmailVerification as sendEmailAddressVerificationEmail,
   signUpWithEmailAndPassword,
   watchAuth,
 } from 'quick-fire-auth';

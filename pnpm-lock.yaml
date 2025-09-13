@@ -24,8 +24,8 @@ importers:
         specifier: ^1.5.4
         version: 1.5.4
       quick-fire-auth:
-        specifier: file:./quick-fire-auth@1.1.1.tgz
-        version: file:quick-fire-auth@1.1.1.tgz
+        specifier: file:./quick-fire-auth@1.1.2.tgz
+        version: file:quick-fire-auth@1.1.2.tgz
       quick-fire-store:
         specifier: file:./quick-fire-db@1.10.1.tgz
         version: file:quick-fire-db@1.10.1.tgz
@@ -1751,9 +1751,9 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
-  quick-fire-auth@file:quick-fire-auth@1.1.1.tgz:
-    resolution: {integrity: sha512-thbx6ZI6MEUACFxWxT/Y8IU8p/HZuaOcoQFKpYm02NbrlEYrplBr79goKRs2y/4wVdfQV66O2FoF2+do/shyAA==, tarball: file:quick-fire-auth@1.1.1.tgz}
-    version: 1.1.1
+  quick-fire-auth@file:quick-fire-auth@1.1.2.tgz:
+    resolution: {integrity: sha512-ZkOwRNx0Nv19vLdH4J1d9z8nKaLnwrMAs7Zuu5DeBNvLzi6oRoaMh4E3Ec9UU3hQV6P4BUK1KwnJovuSN2/DAQ==, tarball: file:quick-fire-auth@1.1.2.tgz}
+    version: 1.1.2
 
   quick-fire-store@file:quick-fire-db@1.10.1.tgz:
     resolution: {integrity: sha512-EJ8qkvhN/9Y0kznOBwgtHrDcBZG5YP7XNT51fz5ZjumV9l4T16enL+dz+gf9dz8cLCsHzAvRplwnNAgcj27czA==, tarball: file:quick-fire-db@1.10.1.tgz}
@@ -4082,7 +4082,7 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  quick-fire-auth@file:quick-fire-auth@1.1.1.tgz:
+  quick-fire-auth@file:quick-fire-auth@1.1.2.tgz:
     dependencies:
       firebase: 11.7.1
     transitivePeerDependencies:

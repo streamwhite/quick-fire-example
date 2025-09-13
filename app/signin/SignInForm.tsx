@@ -1,17 +1,14 @@
 import {
   AuthCredential,
-  MultiFactorResolver,
-  reauthenticateWithCredential,
-  User,
-  UserCredential,
-} from 'firebase/auth';
-import {
   getAuthCredential,
   getMfaResolverInfo,
+  MultiFactorResolver,
+  reauthenticateWithCredential,
   sendMfaPhoneLoginCode,
-  sendSignInLinkToEmail,
   signInWithEmailAndPassword,
   signInWithSocialProvider,
+  User,
+  UserCredential,
   verifyMfaCode,
   watchAuth,
 } from 'quick-fire-auth';
@@ -430,30 +427,6 @@ export default function SignInForm({
           Sign in with TOTP
         </button>
       )}
-      <button
-        className={`px-4 py-2 text-white rounded-md ${
-          user
-            ? 'bg-gray-400 cursor-not-allowed'
-            : 'bg-green-500 hover:bg-green-600'
-        }`}
-        onClick={() => {
-          if (user) return; // Prevent action if user is signed in
-          const actionCodeSettings = {
-            url: `https://127.0.0.1:3000/signin-with-email-link?email=${email}`,
-            handleCodeInApp: true,
-          };
-
-          sendSignInLinkToEmail({ email, actionCodeSettings, auth }).then(
-            () => {
-              console.log('Email sent');
-            }
-          );
-        }}
-        disabled={!!user}
-        data-testid='send-signin-link-button'
-      >
-        Send Email Link
-      </button>
 
       <a
         href='/mfa'

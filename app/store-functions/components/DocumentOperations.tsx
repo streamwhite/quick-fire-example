@@ -32,7 +32,6 @@ export const DocumentOperations: React.FC<BaseComponentProps> = ({
 }) => {
   const [isDocCreated, setIsDocCreated] = useState(false);
   const [isDocExisted, setIsDocExisted] = useState(false);
-  const [isDocCreateFailed, setIsDocCreateFailed] = useState(false);
   const [docData, setDocData] = useState<DocumentData | null>(null);
   const [docsData, setDocsData] = useState<
     FirestoreDocumentWithId<DocumentData>[] | null
@@ -164,43 +163,6 @@ export const DocumentOperations: React.FC<BaseComponentProps> = ({
                 </div>
               )}
             </div>
-          )}
-
-          <button
-            className='w-full px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700'
-            data-testid='create-doc-fail'
-            onClick={async () => {
-              try {
-                setLoading(true);
-                setError(null);
-                setIsDocCreateFailed(false);
-                await createDoc({
-                  db,
-                  collectionPath: 'invalid-collection',
-                  docData: {
-                    title: 'invalid',
-                    qty: 0,
-                    desc: 'this should fail',
-                  },
-                  docCustomId: undefined,
-                });
-              } catch (err) {
-                setError((err as Error).message);
-                setIsDocCreateFailed(true);
-              } finally {
-                setLoading(false);
-              }
-            }}
-          >
-            Test Invalid Collection Creation
-          </button>
-          {isDocCreateFailed && (
-            <p
-              className='text-red-500 text-center mt-2'
-              data-testid='create-doc-fail-result'
-            >
-              Failed to create document
-            </p>
           )}
 
           <button
@@ -373,25 +335,12 @@ export const DocumentOperations: React.FC<BaseComponentProps> = ({
                   return;
                 }
 
-                if (
-                  docData.data &&
-                  'title' in docData.data &&
-                  'qty' in docData.data &&
-                  'desc' in docData.data
-                ) {
-                  setDocData({
-                    title: docData.data.title,
-                    qty: docData.data.qty,
-                    desc: docData.data.desc,
-                  } as DocumentData);
-                } else {
-                  setDocData(null);
-                  setError(
-                    `Document data does not match the expected structure. Found: ${JSON.stringify(
-                      docData
-                    )}`
-                  );
-                }
+                // Debug: Log the actual data structure
+                console.log('Fetched docData:', docData);
+
+                // Use the document data directly - handle both possible structures
+                const actualData = docData.data || docData;
+                setDocData(actualData as DocumentData);
               } catch (err) {
                 setError((err as Error).message);
               } finally {
@@ -404,12 +353,20 @@ export const DocumentOperations: React.FC<BaseComponentProps> = ({
               : 'Fetch Document Data'}
           </button>
           {docData && (
-            <CollapsibleDataDisplay
-              data={docData}
-              title='Document Data'
-              testId='doc-data-result'
-              className='text-green-500 mt-2 p-2 bg-gray-50 rounded overflow-auto'
-            />
+            <div className='mt-2'>
+              <div className='p-2 bg-blue-50 border border-blue-200 rounded mb-2'>
+                <p className='text-sm text-blue-700'>
+                  ✓ Data fetched successfully!
+                </p>
+              </div>
+              <CollapsibleDataDisplay
+                data={docData}
+                title='Document Data'
+                testId='doc-data-result'
+                className='text-green-500 p-2 bg-gray-50 rounded overflow-auto'
+                defaultCollapsed={false}
+              />
+            </div>
           )}
         </div>
       </div>

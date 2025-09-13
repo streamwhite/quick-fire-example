@@ -28,9 +28,6 @@ export const testIds = {
   deleteUserButton: 'delete-user-button', // New test ID
   userExistsMessage: 'user-exists-message', // New test ID
 
-  signinWithLinkUserEmail: 'signin-with-link-user-email',
-  sendSigninLinkButton: 'send-signin-link-button',
-
   socialSignedIn: 'social-signed-in',
   googleSignin: 'google-signin',
   appleSignin: 'apple-signin',
