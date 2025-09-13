@@ -24,11 +24,11 @@ importers:
         specifier: ^1.5.4
         version: 1.5.4
       quick-fire-auth:
-        specifier: file:./quick-fire-auth-2.0.1.tgz
-        version: file:quick-fire-auth-2.0.1.tgz
+        specifier: file:./quick-fire-auth@1.1.1.tgz
+        version: file:quick-fire-auth@1.1.1.tgz
       quick-fire-store:
-        specifier: file:./quick-fire-store-1.9.5.tgz
-        version: file:quick-fire-store-1.9.5.tgz
+        specifier: file:./quick-fire-db@1.10.1.tgz
+        version: file:quick-fire-db@1.10.1.tgz
       ramda:
         specifier: ^0.30.1
         version: 0.30.1
@@ -1751,13 +1751,13 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
-  quick-fire-auth@file:quick-fire-auth-2.0.1.tgz:
-    resolution: {integrity: sha512-KkIVYGvE1t1q/UencVcusjxoWsDEIqNXdf2uuQ4uwkoKIcrmKkcL00fMntzY4k7ntKG0Ix0+n85cFvRpNIoc5g==, tarball: file:quick-fire-auth-2.0.1.tgz}
-    version: 2.0.1
+  quick-fire-auth@file:quick-fire-auth@1.1.1.tgz:
+    resolution: {integrity: sha512-thbx6ZI6MEUACFxWxT/Y8IU8p/HZuaOcoQFKpYm02NbrlEYrplBr79goKRs2y/4wVdfQV66O2FoF2+do/shyAA==, tarball: file:quick-fire-auth@1.1.1.tgz}
+    version: 1.1.1
 
-  quick-fire-store@file:quick-fire-store-1.9.5.tgz:
-    resolution: {integrity: sha512-acYTT/wpS5CWBpt/sGyYCikKph3LFqtmc9Zl+CjUtDvOkgm7YnrhRBfPWIp6xCxAzY9bDK4SbXzgHykdkZrbJA==, tarball: file:quick-fire-store-1.9.5.tgz}
-    version: 1.9.5
+  quick-fire-store@file:quick-fire-db@1.10.1.tgz:
+    resolution: {integrity: sha512-EJ8qkvhN/9Y0kznOBwgtHrDcBZG5YP7XNT51fz5ZjumV9l4T16enL+dz+gf9dz8cLCsHzAvRplwnNAgcj27czA==, tarball: file:quick-fire-db@1.10.1.tgz}
+    version: 1.10.1
 
   ramda@0.30.1:
     resolution: {integrity: sha512-tEF5I22zJnuclswcZMc8bDIrwRHRzf+NqVEmqg50ShAZMP7MWeR/RGDthfM/p+BlqvF2fXAzpn8i+SJcYD3alw==}
@@ -4082,13 +4082,13 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  quick-fire-auth@file:quick-fire-auth-2.0.1.tgz:
+  quick-fire-auth@file:quick-fire-auth@1.1.1.tgz:
     dependencies:
       firebase: 11.7.1
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
 
-  quick-fire-store@file:quick-fire-store-1.9.5.tgz:
+  quick-fire-store@file:quick-fire-db@1.10.1.tgz:
     dependencies:
       firebase: 11.7.1
     transitivePeerDependencies:

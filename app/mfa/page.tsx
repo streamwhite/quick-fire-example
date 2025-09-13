@@ -5,7 +5,7 @@ import {
   enrollMfaWithPhone,
   enrollWfaWithTotp,
   generateTotpSecret,
-  sendEmailAddressVerificationEmail,
+  sendEmailVerification,
   sendMfaPhoneEnrollmentCode,
   watchAuth,
 } from 'quick-fire-auth';
@@ -33,6 +33,8 @@ export default function SignUp() {
   const secretRef = useRef<TotpSecret | null>(null);
   const [totpCode, setTotpCode] = useState('');
   const [isEmailVerificationSent, setIsEmailVerificationSent] = useState(false);
+  const [isTotpEnrolled, setIsTotpEnrolled] = useState(false);
+  const [totpSecret, setTotpSecret] = useState<string>('');
 
   useEffect(() => {
     const unsubscribe = watchAuth({
@@ -77,7 +79,7 @@ export default function SignUp() {
   const handleSendEmailVerification = async () => {
     if (user) {
       try {
-        await sendEmailAddressVerificationEmail({
+        await sendEmailVerification({
           user,
           auth,
           locale: 'en',
@@ -284,6 +286,7 @@ export default function SignUp() {
                   (secretInfo) => {
                     const { qrCodeUri, secret } = secretInfo;
                     secretRef.current = secret;
+                    setTotpSecret(String(secret));
                     handleUri(qrCodeUri);
                   }
                 );
@@ -314,6 +317,7 @@ export default function SignUp() {
                   }).then(() => {
                     setIsEnrolled(true);
                     setHasMfaEnrolled(true);
+                    setIsTotpEnrolled(true);
                   });
                 }}
                 className='px-4 py-2 bg-yellow-500 text-white rounded'
@@ -321,6 +325,43 @@ export default function SignUp() {
               >
                 enroll user
               </button>
+            </div>
+          )}
+
+          {/* TOTP Enrollment Success Notice */}
+          {isTotpEnrolled && (
+            <div className='mt-6 p-4 bg-green-100 border border-green-400 rounded-md'>
+              <h3
+                className='text-lg font-semibold text-green-800 mb-2'
+                data-testid='totp-enrollment-success-title'
+              >
+                ✓ TOTP Successfully Enrolled!
+              </h3>
+              <p
+                className='text-green-700 mb-3'
+                data-testid='totp-enrollment-success-message'
+              >
+                Your TOTP (Time-based One-Time Password) has been successfully
+                enrolled. You can now use your authenticator app to generate
+                codes for two-factor authentication.
+              </p>
+              {totpSecret && (
+                <div className='bg-green-50 border border-green-300 rounded p-3'>
+                  <p className='text-sm font-medium text-green-800 mb-2'>
+                    Your TOTP Secret Key:
+                  </p>
+                  <div
+                    className='bg-white border border-green-200 rounded p-2 font-mono text-sm break-all'
+                    data-testid='totp-secret-display'
+                  >
+                    {totpSecret}
+                  </div>
+                  <p className='text-xs text-green-600 mt-2'>
+                    ⚠️ Keep this secret key safe! Store it in a secure location
+                    as a backup.
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </div>

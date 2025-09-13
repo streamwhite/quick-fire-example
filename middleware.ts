@@ -82,14 +82,14 @@ const checkLimit = (
 // 50 requests per 15 minutes (900,000 ms)
 const postCommentRateLimit = createRateLimitConfig(
   15 * 60 * 1000, // 15 minutes
-  50 // max requests
+  100 // max requests
 );
 
 // Create rate limit configuration for general API endpoints
 // 50 requests per minute
 const generalRateLimit = createRateLimitConfig(
   15 * 60 * 1000, // 15 minutes
-  50 // max requests
+  100 // max requests
 );
 
 export async function middleware(request: NextRequest) {

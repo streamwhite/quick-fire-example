@@ -7,8 +7,8 @@ import {
   deleteUser,
   LanguageCodes,
   sendPasswordResetEmail,
-  sendEmailAddressVerificationEmail as sendVerificationEmail,
-  verifyAndUpdateToNewEmail as updateEmail,
+  sendEmailVerification as sendVerificationEmail,
+  verifyAndUpdateEmail as updateEmail,
   updatePassword,
   watchAuth,
 } from 'quick-fire-auth';
@@ -19,6 +19,7 @@ const lang = 'zh-tw';
 
 const ResetPassPage = () => {
   const [isEmailSent, setIsEmailSent] = useState(false);
+  const [isVerificationEmailSent, setIsVerificationEmailSent] = useState(false);
   const [user, setUser] = useState(auth.currentUser);
   const [newEmail, setNewEmail] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -53,7 +54,7 @@ const ResetPassPage = () => {
       auth,
       locale: lang as LanguageCodes,
     }).then(() => {
-      setIsEmailSent(true);
+      setIsVerificationEmailSent(true);
     });
   };
 
@@ -80,6 +81,7 @@ const ResetPassPage = () => {
           auth,
           locale: lang as LanguageCodes,
         });
+        setIsVerificationEmailSent(true);
       } catch (error) {
         console.error('Error updating email:', error);
       }
@@ -143,6 +145,19 @@ const ResetPassPage = () => {
               </div>
             </div>
           </div>
+
+          {/* Verification Email Success Notice */}
+          {isVerificationEmailSent && (
+            <div className='mt-4 p-4 bg-green-100 border border-green-400 rounded-md'>
+              <p
+                className='text-green-800'
+                data-testid='verification-email-sent-notice'
+              >
+                ✓ Verification email sent successfully! Please check your inbox
+                and click the verification link to verify your email address.
+              </p>
+            </div>
+          )}
 
           {/* Email Update Group */}
           <div className='bg-orange-50 border border-orange-200 rounded-lg p-6'>
@@ -228,7 +243,7 @@ const ResetPassPage = () => {
         <div className='bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-2'>
           <div className='flex justify-between items-center'>
             <span className='text-sm font-medium text-gray-700'>
-              Email Sent:
+              Password Reset Email Sent:
             </span>
             <span
               className={`text-sm font-medium ${
@@ -237,6 +252,19 @@ const ResetPassPage = () => {
               data-testid='email-sent-message'
             >
               {isEmailSent ? '✓ Sent' : '✗ Not sent'}
+            </span>
+          </div>
+          <div className='flex justify-between items-center'>
+            <span className='text-sm font-medium text-gray-700'>
+              Verification Email Sent:
+            </span>
+            <span
+              className={`text-sm font-medium ${
+                isVerificationEmailSent ? 'text-green-600' : 'text-gray-500'
+              }`}
+              data-testid='verification-email-sent-message'
+            >
+              {isVerificationEmailSent ? '✓ Sent' : '✗ Not sent'}
             </span>
           </div>
           <div className='flex justify-between items-center'>
